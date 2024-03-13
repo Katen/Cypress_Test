@@ -24,16 +24,20 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('clickOnLinkText', (text) => { 
-    cy.get('a').contains(text).click();
- })
-
-Cypress.Commands.add('clickOnButtonText', (button) => { 
-cy.get('button').contains(button).click();
-})
+//============== TOOLS FUNCTIONS ==============//
 
 Cypress.Commands.add('checkTextVisibility', (text) => { 
     cy.contains(text, { timeout: 10000 }).should('be.visible');
+})
+
+Cypress.Commands.add('clickOnLinkText', (text) => { 
+    cy.checkTextVisibility(text);
+    cy.get('a').contains(text).click();
+ })
+
+Cypress.Commands.add('clickOnButtonWithText', (buttonName) => { 
+    cy.checkTextVisibility(buttonName);
+    cy.get('button').contains(buttonName).click();
 })
 
 Cypress.Commands.add('selectFromDropDownList', (locatorElement, valueToSelect) => { 
